@@ -66,5 +66,21 @@ public class TaskController {
         return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
     }
 
+    @PatchMapping("/Tasks/{id}")
+    ResponseEntity<Task> UpdateTask(@PathVariable("id") Integer id,@RequestBody Task newTask)
+    {
+        for(Task currentTask : taskList)
+        {
+            if(currentTask.id==id)
+            {
+                currentTask.setDescription(newTask.getDescription());
+                currentTask.setTile(newTask.getTile());
+                currentTask.setDueDate(newTask.getDueDate());
+                return new ResponseEntity<Task>(currentTask, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+    }
+
 
 }
